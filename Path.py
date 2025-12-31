@@ -53,7 +53,7 @@ def affichage(difficulty):
                 rec += '-' * 16 + ' ' + '-' + '\n'
         return rec  
 # test
-print(affichage('easy'))
+#print(affichage('easy'))
 
 
 
@@ -71,12 +71,8 @@ def matrice(affichage):
     # on veut une matrice 9 lignes et 18 colonnes (2 dimension)
     return matrice.reshape(9, 18)
 #test
-print(matrice(affichage('easy')))
-print((matrice(affichage('easy'))[3, 4]))
-
-
-
-
+#print(matrice(affichage('easy')))
+#print((matrice(affichage('easy'))[3, 4]))
 
 
 
@@ -132,7 +128,7 @@ def loss(matrice):
         if matrice[-1, -2] == '*':
             return True
         else:
-            False
+            return False
         
 # on définie comment récupéré la postion de l'ensemble des ennemie
 
@@ -151,8 +147,6 @@ def position(matrice):
 #a = matrice(affichage('easy'))
 #b = move(a, 50)
 #print(position(b))
-
-
 
 
 
@@ -241,6 +235,11 @@ class Tower():
 
 
 
+# afficher en ASDII la matrice modifié
+def affichage_actuel(matrice):
+    pass
+
+
 
 
 # maintenant on définit une fonction qui permet de jouer une partie
@@ -263,13 +262,10 @@ def play():
         # On laisse l'utilisateur laissé écoulé le temps selon la duré qu'il souhaite
         while True:
             try:
-                temps = input('Quel duré voulez-vous laissé joué le jeu')
-                if isinstance(temps, int) == False:
-                    raise TypeError
+                temps = int(input('Quel duré voulez-vous laissé joué le jeu: '))
                 if temps < 0:
                     raise ValueError
-            except TypeError:
-                print('Entrez une durée valide')
+                print(Matrice)
             except ValueError:
                 print('Entrez une durée valide')
             else:
@@ -287,4 +283,7 @@ def play():
             tourn.place(Matrice)
             tours_placés.append(tourn)
 
+        continuer = input("Continuer ? (o/n) : ")
+        if continuer != 'o':
+            break
 play()
