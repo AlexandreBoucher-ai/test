@@ -101,6 +101,7 @@ def move(matrice ,temps):
                     # on rajoute donc un délai de 1 seconde (0.01 pour les tests temporaires)
                     time.sleep(0.01)
                     # * représente l'énemie
+                    matrice[matrice == '*'] = ' '
                     matrice[x, y] = '*'
         # on retourne la matrice modifié après x temps ou après avoir parcour tout les éléments de la matrice  
         return matrice
