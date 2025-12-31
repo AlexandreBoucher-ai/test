@@ -89,7 +89,8 @@ def move(matrice ,temps):
         # 1 tick = à chaque fois que l'énoncé if de la boucle est lu
         # donc pour chaque tic, on ajoute x temps de pause avec sleep
         # remarque: chaque tic est un déplacement, et non juste une lecture de la boucle
-        for x, y in matrice:
+        # np.shape retourne les dimension de la matrice (pour easy, 9 par 18)
+        for x, y in numpy.ndindex(matrice.shape):
             # temps permet de faire un nb arbitraire d'itération
             # si temps > nb d'élément dans la matrice, alors
             # l'itération sera arrêter lorsqu'on aura parcouru tout les élément de la matrice
@@ -97,10 +98,10 @@ def move(matrice ,temps):
                 temps = temps - 1
                 if matrice[x, y] == ' ':
                     # si c'est un espace vide et donc qu'il y a un déplacement,
-                    # on rajoute donc un délai de 1 seconde
-                    time.sleep(1)
+                    # on rajoute donc un délai de 1 seconde (0.01 pour les tests temporaires)
+                    time.sleep(0.01)
                     # * représente l'énemie
-                    matrice[x, y] == '*'
+                    matrice[x, y] = '*'
         # on retourne la matrice modifié après x temps ou après avoir parcour tout les éléments de la matrice  
         return matrice
 # test
