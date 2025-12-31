@@ -71,6 +71,15 @@ print(matrice(affichage('easy')))
 print((matrice(affichage('easy'))[3, 4]))
 
 
+# Pour le user (et donc les input), on définit le système de coordonné
+# En fait, on les simplifies, pour que le input soit de (1,1) à (9,18)
+# donc on prend la matrice en argument
+def coordonnés(matrice):
+    pass
+
+
+
+
 
 
 
@@ -123,3 +132,49 @@ def loss(matrice):
         # si l'élément de la dernière ligne et de l'avant dernière colonne est un ennemie
         if matrice[-1, -2] == '*':
             return 'Loss'
+        
+
+
+
+
+
+
+
+
+
+
+
+# On défini les towers
+
+
+# prende la matrice actuelle en argument
+def place(matrice):
+    # on demande ce qu'on veut en entré
+    try:
+        x = int(input('Donner une coordonné entre 0 et 8 en x'))
+        y = int(input('Donner une coordonné entre 0 et 17 en y'))
+        if x < 0 or x > 8:
+            raise ValueError
+        if y < 0 or y > 17:
+            raise ValueError
+    except TypeError:
+         print("Vous n'avez pas donner un nombre")
+         x = int(input('Donner une coordonné entre 0 et 8 en x'))
+         y = int(input('Donner une coordonné entre 0 et 17 en y'))
+    except ValueError:
+        print("Une de vos valeurs est hors de l'intervalle")
+        x = int(input('Donner une coordonné entre 0 et 8 en x'))
+        y = int(input('Donner une coordonné entre 0 et 17 en y'))
+
+
+    
+
+class Tower():
+    def __init__(self):
+        self.position = None
+
+    def place(self, position):
+        self.position = input('Donner une coordonné entre (0,0) et (9, 15)')
+        
+
+
