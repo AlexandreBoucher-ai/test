@@ -85,6 +85,8 @@ import time
 # voir utilité de temps plus bas
 # sinon, matrice est l'objet retourner par la fonction matrice
 def move(matrice ,temps):
+        # on définie la valeur none comme valeur initile de à vider (voir après)
+        àvider = None
         # en même temps qu'on code le déplacement, on code le temps entre chaque move dans cette fonction
         # 1 tick = à chaque fois que l'énoncé if de la boucle est lu
         # donc pour chaque tic, on ajoute x temps de pause avec sleep
@@ -100,12 +102,16 @@ def move(matrice ,temps):
                     # si c'est un espace vide et donc qu'il y a un déplacement,
                     # on rajoute donc un délai de 1 seconde (0.01 pour les tests temporaires)
                     time.sleep(0.01)
-                    # * représente l'énemie
-                    matrice[matrice == '*'] = ' '
+                    # on remplace la position précédente par vide (si il y avait)
+                    if àvider != None:
+                        matrice[àvider] = ' '
+                    # on place * à la nouvelle position
                     matrice[x, y] = '*'
+                    # on enregistre comme la prochaine position à vider
+                    àvider = x, y
         # on retourne la matrice modifié après x temps ou après avoir parcour tout les éléments de la matrice  
         return matrice
 # test
 a = matrice(affichage('easy'))
-b = move(a, 999)
+b = move(a, 50)
 print(b)
