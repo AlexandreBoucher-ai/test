@@ -75,11 +75,6 @@ print(matrice(affichage('easy')))
 print((matrice(affichage('easy'))[3, 4]))
 
 
-# Pour le user (et donc les input), on définit le système de coordonné
-# En fait, on les simplifies, pour que le input soit de (1,1) à (9,18)
-# donc on prend la matrice en argument
-def coordonnés(matrice):
-    pass
 
 
 
@@ -125,9 +120,9 @@ def move(matrice, temps):
         # on retourne la matrice modifié après x temps ou après avoir parcour tout les éléments de la matrice  
         return matrice
 # test
-a = matrice(affichage('easy'))
-b = move(a, 50)
-print(b)
+#a = matrice(affichage('easy'))
+#b = move(a, 50)
+#print(b)
 
 
 # on défini les conditions de défaites
@@ -135,7 +130,9 @@ print(b)
 def loss(matrice):
         # si l'élément de la dernière ligne et de l'avant dernière colonne est un ennemie
         if matrice[-1, -2] == '*':
-            return 'Loss'
+            return True
+        else:
+            False
         
 # on définie comment récupéré la postion de l'ensemble des ennemie
 
@@ -151,9 +148,9 @@ def position(matrice):
         coords.append((int(x), int(y)))
     return coords
 # test
-a = matrice(affichage('easy'))
-b = move(a, 50)
-print(position(b))
+#a = matrice(affichage('easy'))
+#b = move(a, 50)
+#print(position(b))
 
 
 
@@ -164,9 +161,6 @@ print(position(b))
 # on défini un nouvelle classe d'erreur qui sera utilisé après
 class PlacementError(Exception):
     pass
-
-
-
 
 
 
@@ -238,8 +232,59 @@ class Tower():
 #print(b.position())
 
 # test kill
-a = matrice(affichage('easy'))
-b = move(a, 45)
-c = Tower()
-c.place(b)
-print(c.kill(b))
+#a = matrice(affichage('easy'))
+#b = move(a, 45)
+#c = Tower()
+#c.place(b)
+#print(c.kill(b))
+
+
+
+
+
+
+# maintenant on définit une fonction qui permet de jouer une partie
+
+def play():
+    # fonction matrice avec affichage pour définir le parcour
+    Matrice = matrice(affichage('easy'))
+
+    # on garde track du nb de tour placé
+    tours_placés = []
+
+    # On laisse l'utilisateur placé un tour avant de faire écoulé le temps une première fois
+    tour1 = Tower()
+    tour1.place(Matrice)
+    tours_placés.append(tour1)
+
+    # on utilise la fonction loss pour mettre fin à la partie
+    # while répète toutes les actions suivantes tant que la conditions est de loss est False
+    while loss(Matrice) == False:
+        # On laisse l'utilisateur laissé écoulé le temps selon la duré qu'il souhaite
+        while True:
+            try:
+                temps = input('Quel duré voulez-vous laissé joué le jeu')
+                if isinstance(temps, int) == False:
+                    raise TypeError
+                if temps < 0:
+                    raise ValueError
+            except TypeError:
+                print('Entrez une durée valide')
+            except ValueError:
+                print('Entrez une durée valide')
+            else:
+                # l'ennemie se déplace selon le temps indiqué
+                move(Matrice, temps)
+                break
+    
+        # on utilise la méthode kill pour tuer si le cas
+        for i in tours_placés:
+            i.kill(Matrice)
+
+        # si l'utilisateu a posé temps > 30, il peut mettre une nouvelle tour
+        if temps >= 30:
+            tourn = Tower()
+            tourn.place(Matrice)
+            tours_placés.append(tourn)
+
+play()
