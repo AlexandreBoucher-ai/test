@@ -133,49 +133,6 @@ def loss(matrice):
         if matrice[-1, -2] == '*':
             return 'Loss'
         
-
-
-
-
-
-
-# On défini le placement des tower
-
-# on défini un nouvelle classe d'erreur qui sera utilisé après
-class PlacementError(Exception):
-    pass
-
-# prende la matrice actuelle en argument
-def place(matrice):
-    # on boucle jusqu'à ce que l'énoncé try ne soulève aucune erreur
-    while True:
-        try:
-            # on demande ce qu'on veut en entré
-            x = int(input('Donner une coordonné entre 0 et 8 en x: '))
-            y = int(input('Donner une coordonné entre 0 et 17 en y: '))
-            # erreur si ne donnes pas dans l'intervalles
-            if x < 0 or x > 8:
-                raise ValueError
-            if y < 0 or y > 17:
-                raise ValueError
-            # erreur si pas une case '-'
-            if matrice[x,y] != '-':
-                raise PlacementError
-        except TypeError:
-            print("Vous n'avez pas donner un nombre")
-        except ValueError:
-            print("Une de vos valeurs est hors de l'intervalle")
-        except PlacementError:
-            print("Vous devez choisir une case libre '-'")
-        # une fois qu'aucune exception n'est soulevé
-        else:
-            # On place la tower au coordonné focntionnel
-            matrice[x, y] = 'X'
-            # mettre fin au while lorsqu'il n'y a pu d'exception
-            break
-    return matrice
-
-
 # on définie comment récupéré la postion de l'ensemble des ennemie
 
 def position(matrice):
@@ -196,14 +153,69 @@ print(position(b))
 
 
 
+
+
+# On défini le placement des tower
+
+# on défini un nouvelle classe d'erreur qui sera utilisé après
+class PlacementError(Exception):
+    pass
+
+
+
+
+
+
 # on défini lorsqu'une tower tue un ennemie
 class Tower():
     def __init__(self):
         # pour l'instant, on impose un range de rayon 3 à chaque tower
         self.range = 3
-    # distance est la distance de l'ennemie par rapport à la tower
-    def kill(self):
-        pass
+        # par défaut, la tour n'esp pas placé, donc sa position est nul
+        # pos sera upater dans place
+        self.pos = None
 
+        # prende la matrice actuelle en argument
+    def place(self, matrice):
+        # on boucle jusqu'à ce que l'énoncé try ne soulève aucune erreur
+        while True:
+            try:
+                # on demande ce qu'on veut en entré
+                x = int(input('Donner une coordonné entre 0 et 8 en x: '))
+                y = int(input('Donner une coordonné entre 0 et 17 en y: '))
+                # erreur si ne donnes pas dans l'intervalles
+                if x < 0 or x > 8:
+                    raise ValueError
+                if y < 0 or y > 17:
+                    raise ValueError
+                # erreur si pas une case '-'
+                if matrice[x,y] != '-':
+                    raise PlacementError
+            except TypeError:
+                print("Vous n'avez pas donner un nombre")
+            except ValueError:
+                print("Une de vos valeurs est hors de l'intervalle")
+            except PlacementError:
+                print("Vous devez choisir une case libre '-'")
+            # une fois qu'aucune exception n'est soulevé
+            else:
+                # On place la tower au coordonné focntionnel
+                matrice[x, y] = 'X'
+                # on défini la position de la tour
+                self.pos = x, y
+                # mettre fin au while lorsqu'il n'y a pu d'exception
+                break
+        return matrice
+    
+    # Pour récupérer la position
+    def position(self):
+        return self.position
 
-def kill
+# test place:
+a = matrice(affichage('easy'))
+b = Tower()
+print(b.place(a))
+
+# prend en argument la matrice actuelle et P/r à quelle tower on regarde
+def kill(matrice, tower):
+    pass
