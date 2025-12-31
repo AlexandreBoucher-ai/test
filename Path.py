@@ -146,25 +146,36 @@ def loss(matrice):
 
 # On défini les towers
 
+# on défini un nouvelle classe d'erreur qui sera utilisé après
+class PlacementError(Exception):
+    pass
 
 # prende la matrice actuelle en argument
 def place(matrice):
-    # on demande ce qu'on veut en entré
-    try:
-        x = int(input('Donner une coordonné entre 0 et 8 en x'))
-        y = int(input('Donner une coordonné entre 0 et 17 en y'))
-        if x < 0 or x > 8:
-            raise ValueError
-        if y < 0 or y > 17:
-            raise ValueError
-    except TypeError:
-         print("Vous n'avez pas donner un nombre")
-         x = int(input('Donner une coordonné entre 0 et 8 en x'))
-         y = int(input('Donner une coordonné entre 0 et 17 en y'))
-    except ValueError:
-        print("Une de vos valeurs est hors de l'intervalle")
-        x = int(input('Donner une coordonné entre 0 et 8 en x'))
-        y = int(input('Donner une coordonné entre 0 et 17 en y'))
+    # on boucle jusqu'à ce que l'énoncé try ne soulève aucune erreur
+    while true:
+        try:
+            # on demande ce qu'on veut en entré
+            x = int(input('Donner une coordonné entre 0 et 8 en x'))
+            y = int(input('Donner une coordonné entre 0 et 17 en y'))
+            # erreur si ne donnes pas dans l'intervalles
+            if x < 0 or x > 8:
+                raise ValueError
+            if y < 0 or y > 17:
+                raise ValueError
+            # erreur si pas une case '-'
+            if matrice[x,y] != '-':
+                raise PlacementError
+        except TypeError:
+            print("Vous n'avez pas donner un nombre")
+        except ValueError:
+            print("Une de vos valeurs est hors de l'intervalle")
+        except PlacementError:
+            print("Vous devez choisir une case libre '-'")
+        # une fois qu'aucune exception n'est soulevé
+        else:
+            matrice[x, y] = 'X'
+    return matrice
 
 
     
