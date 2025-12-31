@@ -1,3 +1,7 @@
+import math
+
+
+
 # ON FAIT UN TOWER DEFENCE
 
 # Ici, on définit l'affichage et le déplacement des énnemies
@@ -210,15 +214,32 @@ class Tower():
     # Pour récupérer la position
     def position(self):
         return self.pos
+    
+    # prend la matrice
+    def kill(self, matrice):
+        # utilise la fonction position qui donne une liste de la position des ennemies
+        position_badguys = position(matrice)
+        # on itère sur chaque tuple dans la liste retourner par la fonction position des ennemies
+        for i in position_badguys:
+            # distance est l'hypothénuse
+            distance = math.sqrt((self.pos[0] - i[0])**2 + (self.pos[1] - i[1])**2)
+            # si la distance est inférieur au range de la tour,
+            # la tour est détruite et remplacer par un espace vide
+            if distance <= self.range:
+                matrice[i[0], i[1]] = ' '
+        return matrice
 
 # test place:
-a = matrice(affichage('easy'))
-b = Tower()
-print(b.place(a))
+#a = matrice(affichage('easy'))
+#b = Tower()
+#print(b.place(a))
 
 # test position
-print(b.position())
+#print(b.position())
 
-# prend en argument la matrice actuelle et P/r à quelle tower on regarde
-def kill(matrice, tower):
-    pass
+# test kill
+a = matrice(affichage('easy'))
+b = move(a, 45)
+c = Tower()
+c.place(b)
+print(c.kill(b))
