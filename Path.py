@@ -176,42 +176,27 @@ def place(matrice):
     return matrice
 
 
+# on définie comment récupéré la postion de l'ensemble des ennemie
 
-
-    
-
-
-
-# on défini comment une tower tue un enemie via des classes
-import math
-
-
-
-class Bad():
-    def __init__(self):
-        # De base, il n'y a aucun ennemie, donc pos est nul
-        self.pos = None
-    
-    # pour la position de l'ennemie, on utilise la matrice actuelle
-    def position(self, matrice):
-        # where renvoies tout les indices de positions où il y a un *
-        # where renvoies des tuples pour chaque * trouvé
-        pos = numpy.where(matrice == '*')
-        # attention, where retourne (array([x]), array([y])), il faut donc convertir en int
-        # coords assemble dans une liste l'ensemble des pos où il y a un *
-        # suffit de faire coords[0] pour avoir le premier point etc...
-        coords = []
-        for x, y in zip(*pos):
-            coords.append((int(x), int(y)))
-        return coords
+def position(matrice):
+    # where renvoies tout les indices de positions où il y a un *
+    # where renvoies des tuples pour chaque * trouvé
+    pos = numpy.where(matrice == '*')
+    # attention, where retourne (array([x]), array([y])), il faut donc convertir en int
+    # coords assemble dans une liste l'ensemble des pos où il y a un *
+    # suffit de faire coords[0] pour avoir le premier point etc...
+    coords = []
+    for x, y in zip(*pos):
+        coords.append((int(x), int(y)))
+    return coords
 # test
 a = matrice(affichage('easy'))
 b = move(a, 50)
-c = Bad()
-print(c.position(b))
+print(position(b))
 
 
 
+# on défini lorsqu'une tower tue un ennemie
 class Tower():
     def __init__(self):
         # pour l'instant, on impose un range de rayon 3 à chaque tower
@@ -221,4 +206,4 @@ class Tower():
         pass
 
 
-
+def kill
