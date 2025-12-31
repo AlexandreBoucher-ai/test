@@ -139,12 +139,7 @@ def loss(matrice):
 
 
 
-
-
-
-
-
-# On défini les towers
+# On défini le placement des tower
 
 # on défini un nouvelle classe d'erreur qui sera utilisé après
 class PlacementError(Exception):
@@ -153,11 +148,11 @@ class PlacementError(Exception):
 # prende la matrice actuelle en argument
 def place(matrice):
     # on boucle jusqu'à ce que l'énoncé try ne soulève aucune erreur
-    while true:
+    while True:
         try:
             # on demande ce qu'on veut en entré
-            x = int(input('Donner une coordonné entre 0 et 8 en x'))
-            y = int(input('Donner une coordonné entre 0 et 17 en y'))
+            x = int(input('Donner une coordonné entre 0 et 8 en x: '))
+            y = int(input('Donner une coordonné entre 0 et 17 en y: '))
             # erreur si ne donnes pas dans l'intervalles
             if x < 0 or x > 8:
                 raise ValueError
@@ -174,18 +169,34 @@ def place(matrice):
             print("Vous devez choisir une case libre '-'")
         # une fois qu'aucune exception n'est soulevé
         else:
+            # On place la tower au coordonné focntionnel
             matrice[x, y] = 'X'
+            # mettre fin au while lorsqu'il n'y a pu d'exception
+            break
     return matrice
+#test
+a = matrice(affichage('easy'))
+place(a)
+print(a)
+
 
 
     
 
+
+
+
+
+
+
+
+
+# on défini comment une tower tue un enemie via une classe
 class Tower():
     def __init__(self):
-        self.position = None
-
-    def place(self, position):
-        self.position = input('Donner une coordonné entre (0,0) et (9, 15)')
+        # pour l'instant, on impose un range de rayon 3 à chaque tower
+        self.range = 3
+    # distance est la distance de l'ennemie par rapport à la tower
+    def kill(self, distance):
         
-
 
