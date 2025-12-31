@@ -209,12 +209,15 @@ class Tower():
     
     # Pour récupérer la position
     def position(self):
-        return self.position
+        return self.pos
 
 # test place:
 a = matrice(affichage('easy'))
 b = Tower()
 print(b.place(a))
+
+# test position
+print(b.position())
 
 # prend en argument la matrice actuelle et P/r à quelle tower on regarde
 def kill(matrice, tower):
