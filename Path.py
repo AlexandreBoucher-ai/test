@@ -84,7 +84,7 @@ import time
 # temps est un input de int
 # voir utilité de temps plus bas
 # sinon, matrice est l'objet retourner par la fonction matrice
-def move(matrice ,temps):
+def move(matrice, temps):
         # on définie la valeur none comme valeur initile de à vider (voir après)
         àvider = None
         # en même temps qu'on code le déplacement, on code le temps entre chaque move dans cette fonction
@@ -107,7 +107,7 @@ def move(matrice ,temps):
                         matrice[àvider] = ' '
                     # on place * à la nouvelle position
                     matrice[x, y] = '*'
-                    # on enregistre comme la prochaine position à vider
+                    # on enregistre comme la prochaine position à vider (lorsque l'énoncé if sera éxécuté à nouvea)
                     àvider = x, y
         # on retourne la matrice modifié après x temps ou après avoir parcour tout les éléments de la matrice  
         return matrice
@@ -115,3 +115,11 @@ def move(matrice ,temps):
 a = matrice(affichage('easy'))
 b = move(a, 50)
 print(b)
+
+
+# on défini les conditions de défaites
+# prend en argument la matrice actiuel
+def loss(matrice):
+        # si l'élément de la dernière ligne et de l'avant dernière colonne est un ennemie
+        if matrice[-1, -2] == '*':
+            return 'Loss'
